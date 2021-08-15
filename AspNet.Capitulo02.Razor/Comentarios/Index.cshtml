@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<meta name="color-scheme" content="dark">*@
+    @*<meta name="keywords" content="comentários, treinamento, ASP.NET">*@
+    @*<meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />*@
+    <title>Comentários</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+        }
+
+        label {
+            min-width: 100px;
+            display: inline-block;
+        }
+
+            label[for=comentario] {
+                vertical-align: top;
+            }
+
+        input, textarea {
+            min-width: 50%;
+            min-height: 28px;
+            margin-bottom: 5px;
+            /*box-sizing: border-box;*/
+        }
+
+            input[type=submit] {
+                min-width: 300px;
+                margin-left: 105px;
+            }
+
+        @@media (max-width: 600px) {
+            label {
+                display: block;
+            }
+
+            input, textarea {
+                width: 100%;
+            }
+
+                input[type=submit] {
+                    min-width: 100%;
+                    margin-left: 0px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <h1>Comentários</h1>
+    <hr />
+    <form>
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" />
+        <br />
+        <label for="comentario">Comentário</label>
+        <textarea name="comentario" rows="10"></textarea>
+        <br />
+        <input type="submit" value="Gravar" />
+    </form>
+</body>
+</html>
