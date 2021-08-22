@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using AspNet.Capitulo02.Razor.Comentarios
+
+@{
+    var comentarioAplicacao = new ComentarioAplicacao();
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -55,9 +60,15 @@
     </style>
 </head>
 <body>
+    @{
+        if (IsPost)
+        {
+            comentarioAplicacao.Incluir(Request["nome"], Request["comentario"]);
+        }
+    }
     <h1>Comentários</h1>
     <hr />
-    <form>
+    <form method="post">
         <label for="nome">Nome</label>
         <input type="text" name="nome" />
         <br />
@@ -66,5 +77,12 @@
         <br />
         <input type="submit" value="Gravar" />
     </form>
+    <hr />
+    @foreach (var comentario in comentarioAplicacao.Selecionar())
+    {
+        <p>@comentario.Nome</p>
+        <p>@comentario.Conteudo</p>
+        <br />
+    }
 </body>
 </html>
