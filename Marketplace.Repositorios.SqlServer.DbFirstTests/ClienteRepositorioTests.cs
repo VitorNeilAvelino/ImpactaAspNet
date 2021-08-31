@@ -15,13 +15,13 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst.Tests
             cliente.Nome = "Vítor Avelino";
             cliente.Telefone = "11 9 9999 8888";
 
-            new ClienteRepositorio().Incluir(cliente);
+            new ClienteRepositorio().Inserir(cliente);
         }
 
         [TestMethod]
         public void ExcluirTeste()
         {
-            new ClienteRepositorio().Excluir(2);
+            new ClienteRepositorio().Excluir(3);
         }
     }
 }

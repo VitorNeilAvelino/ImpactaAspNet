@@ -6,7 +6,7 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
 {
     public class ClienteRepositorio
     {
-        public void Incluir(Cliente cliente)
+        public void Inserir(Cliente cliente)
         {
             using (var contexto = new MarketplaceEntities())
             {
@@ -44,7 +44,11 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
         {
             using (var contexto = new MarketplaceEntities())
             {
-                contexto.Clientes.Remove(contexto.Clientes.SingleOrDefault(c => c.Id == id));
+                var cliente = contexto.Clientes.SingleOrDefault(c => c.Id == id);
+
+                if (cliente == null) return;
+                
+                contexto.Clientes.Remove(cliente);
                 contexto.SaveChanges();
             }
         }
