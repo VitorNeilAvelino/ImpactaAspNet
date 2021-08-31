@@ -38,7 +38,7 @@ namespace Marketplace.Mvc.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View();
+                    return View(viewModel);
                 }
 
                 clienteRepositorio.Inserir(Mapear(viewModel));
