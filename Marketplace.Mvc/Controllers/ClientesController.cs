@@ -1,9 +1,6 @@
 ﻿using Marketplace.Mvc.Models;
 using Marketplace.Repositorios.SqlServer.DbFirst;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Marketplace.Mvc.Controllers
@@ -46,7 +43,7 @@ namespace Marketplace.Mvc.Controllers
         // GET: Clientes/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(Mapear(clienteRepositorio.Selecionar(id)));
         }
 
         // GET: Clientes/Create
@@ -57,6 +54,7 @@ namespace Marketplace.Mvc.Controllers
 
         // POST: Clientes/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ClienteViewModel viewModel)
         {
             try
@@ -94,44 +92,65 @@ namespace Marketplace.Mvc.Controllers
         // GET: Clientes/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(Mapear(clienteRepositorio.Selecionar(id)));
         }
 
         // POST: Clientes/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, ClienteViewModel viewModel)
         {
             try
             {
-                // TODO: Add update logic here
+                if (id != viewModel.Id)
+                {
+                    ModelState.AddModelError("", "O id do Cliente especificado na URL não é o mesmo da requisição enviada ao servidor.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(viewModel);
+                }
+
+                clienteRepositorio.Atualizar(Mapear(viewModel));
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                //Logar - log4net
+
+                return View("Error");
             }
         }
 
         // GET: Clientes/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(Mapear(clienteRepositorio.Selecionar(id)));
         }
 
         // POST: Clientes/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, ClienteViewModel viewModel)
         {
             try
             {
-                // TODO: Add delete logic here
+                if (id != viewModel.Id)
+                {
+                    ModelState.AddModelError("", "O id do Cliente especificado na URL não é o mesmo da requisição enviada ao servidor.");
+                }
+
+                clienteRepositorio.Excluir(id);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                //Logar - log4net
+
+                return View("Error");
             }
         }
     }

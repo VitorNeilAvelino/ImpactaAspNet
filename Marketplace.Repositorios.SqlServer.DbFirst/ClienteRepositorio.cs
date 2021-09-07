@@ -15,11 +15,11 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
             }
         }
 
-        public Cliente Selecionar(string documento)
+        public Cliente Selecionar(int id)
         {
             using (var contexto = new MarketplaceEntities())
             {
-                return contexto.Clientes.SingleOrDefault(c => c.Documento == documento);
+                return contexto.Clientes.SingleOrDefault(c => c.Id == id);
             }
         }
 
@@ -51,7 +51,7 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
                 var cliente = contexto.Clientes.SingleOrDefault(c => c.Id == id);
 
                 if (cliente == null) return;
-                
+
                 contexto.Clientes.Remove(cliente);
                 contexto.SaveChanges();
             }
