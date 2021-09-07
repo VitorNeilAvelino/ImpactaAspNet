@@ -15,7 +15,32 @@ namespace Marketplace.Mvc.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
-            return View();
+            return View(Mapear(clienteRepositorio.Selecionar()));
+        }
+
+        private List<ClienteViewModel> Mapear(List<Cliente> clientes)
+        {
+            var viewModel = new List<ClienteViewModel>();
+
+            foreach (var cliente in clientes)
+            {
+                viewModel.Add(Mapear(cliente));
+            }
+
+            return viewModel;
+        }
+
+        private ClienteViewModel Mapear(Cliente cliente)
+        {
+            var viewModel = new ClienteViewModel();
+
+            viewModel.Documento = cliente.Documento;
+            viewModel.Email = cliente.Email;
+            viewModel.Id = cliente.Id;
+            viewModel.Nome = cliente.Nome;
+            viewModel.Telefone = cliente.Telefone;
+
+            return viewModel;
         }
 
         // GET: Clientes/Details/5
