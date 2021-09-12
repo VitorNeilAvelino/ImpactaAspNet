@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Repositorios.Sq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Mvc", "Marketplace.Mvc\Marketplace.Mvc.csproj", "{2FC19864-B99C-47B0-9164-1D5F278C15D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Identity.Mvc", "Marketplace.Identity.Mvc\Marketplace.Identity.Mvc.csproj", "{6FEA9C3E-4D8F-4E36-BC4D-E5182E9C4091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{2FC19864-B99C-47B0-9164-1D5F278C15D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FC19864-B99C-47B0-9164-1D5F278C15D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FC19864-B99C-47B0-9164-1D5F278C15D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FEA9C3E-4D8F-4E36-BC4D-E5182E9C4091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FEA9C3E-4D8F-4E36-BC4D-E5182E9C4091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FEA9C3E-4D8F-4E36-BC4D-E5182E9C4091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FEA9C3E-4D8F-4E36-BC4D-E5182E9C4091}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{A9B056CF-0071-4DC2-B870-51F517BA3E2B} = {FF1FC601-7F5C-4F95-B9EC-67683A8ED22A}
 		{260E5AC4-56E6-4AED-BA44-439094EEAEF6} = {FF1FC601-7F5C-4F95-B9EC-67683A8ED22A}
 		{2FC19864-B99C-47B0-9164-1D5F278C15D3} = {FF1FC601-7F5C-4F95-B9EC-67683A8ED22A}
+		{6FEA9C3E-4D8F-4E36-BC4D-E5182E9C4091} = {FF1FC601-7F5C-4F95-B9EC-67683A8ED22A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {02E52A5A-1392-4C35-BAC2-3F52E8A24001}
