@@ -1,15 +1,18 @@
 ﻿using Marketplace.Mvc.Models;
 using Marketplace.Repositorios.SqlServer.DbFirst;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading;
 using System.Web.Mvc;
 
 namespace Marketplace.Mvc.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         private readonly ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
-
-        // GET: Clientes
+                
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(Mapear(clienteRepositorio.Selecionar()));
@@ -88,8 +91,9 @@ namespace Marketplace.Mvc.Controllers
 
             return cliente;
         }
-
-        // GET: Clientes/Edit/5
+                
+        //[Authorize(Roles = "Vendedor")] // O empilhamento significa "E", a vírgula significa "OU".
+        [Authorize(Roles = "Administrador, Gerente")]
         public ActionResult Edit(int id)
         {
             return View(Mapear(clienteRepositorio.Selecionar(id)));
@@ -124,9 +128,15 @@ namespace Marketplace.Mvc.Controllers
             }
         }
 
-        // GET: Clientes/Delete/5
         public ActionResult Delete(int id)
         {
+            var usuarioLogado = (ClaimsPrincipal)Thread.CurrentPrincipal;
+
+            if (!usuarioLogado.HasClaim("Clientes", "Excluir"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View(Mapear(clienteRepositorio.Selecionar(id)));
         }
 
