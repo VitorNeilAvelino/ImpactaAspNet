@@ -6,6 +6,6 @@
         public Cartao Cartao { get; set; }
         public string NumeroPedido { get; set; }
         public decimal Valor { get; set; }
-        public int Status { get; set; }
+        public StatusPagamento Status { get; set; }
     }
 }
