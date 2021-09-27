@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayPagamento.Repositori
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayPagamento.Repositorios.SqlServer.CodeFirstTests", "GatewayPagamento.Repositorios.SqlServer.CodeFirstTests\GatewayPagamento.Repositorios.SqlServer.CodeFirstTests.csproj", "{D0C24A1B-CA93-4AFA-9860-25B1222BB9EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayPagamento.WebApi", "GatewayPagamento.WebApi\GatewayPagamento.WebApi.csproj", "{33301AEE-A083-4B93-B620-A075CA2E16FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayPagamento.Apoio", "GatewayPagamento.Apoio\GatewayPagamento.Apoio.csproj", "{1A02312E-F539-4ACA-A3B4-A400A7D27F7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,14 @@ Global
 		{D0C24A1B-CA93-4AFA-9860-25B1222BB9EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0C24A1B-CA93-4AFA-9860-25B1222BB9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0C24A1B-CA93-4AFA-9860-25B1222BB9EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33301AEE-A083-4B93-B620-A075CA2E16FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33301AEE-A083-4B93-B620-A075CA2E16FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33301AEE-A083-4B93-B620-A075CA2E16FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33301AEE-A083-4B93-B620-A075CA2E16FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A02312E-F539-4ACA-A3B4-A400A7D27F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A02312E-F539-4ACA-A3B4-A400A7D27F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A02312E-F539-4ACA-A3B4-A400A7D27F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A02312E-F539-4ACA-A3B4-A400A7D27F7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +85,8 @@ Global
 		{873012E3-D91B-4637-9E98-0C343ECA8A8F} = {E86657EA-F6C0-4F0A-A2E5-FE6893ABDB89}
 		{B304504E-C153-4A18-B12C-941F8305A879} = {E86657EA-F6C0-4F0A-A2E5-FE6893ABDB89}
 		{D0C24A1B-CA93-4AFA-9860-25B1222BB9EE} = {E86657EA-F6C0-4F0A-A2E5-FE6893ABDB89}
+		{33301AEE-A083-4B93-B620-A075CA2E16FA} = {E86657EA-F6C0-4F0A-A2E5-FE6893ABDB89}
+		{1A02312E-F539-4ACA-A3B4-A400A7D27F7D} = {E86657EA-F6C0-4F0A-A2E5-FE6893ABDB89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {02E52A5A-1392-4C35-BAC2-3F52E8A24001}

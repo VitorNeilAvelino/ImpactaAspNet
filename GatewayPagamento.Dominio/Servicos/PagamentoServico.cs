@@ -2,7 +2,7 @@
 using GatewayPagamento.Dominio.Interfaces;
 using System.Linq;
 
-namespace GatewayPagamento.Dominio.Servico
+namespace GatewayPagamento.Dominio.Servicos
 {
     public class PagamentoServico
     {
@@ -26,7 +26,7 @@ namespace GatewayPagamento.Dominio.Servico
 
             var pagamentoExistente = pagamentoRepositorio.Selecionar(p => p.NumeroPedido == pagamento.NumeroPedido);
 
-            if (!pagamentoExistente.Any())
+            if (pagamentoExistente.Any())
             {
                 return StatusPagamento.PedidoJaPago;
             }
@@ -35,6 +35,8 @@ namespace GatewayPagamento.Dominio.Servico
             {
                 return StatusPagamento.SaldoIndisponivel;
             }
+
+            pagamento.Status = StatusPagamento.PagamentoOK;
 
             pagamentoRepositorio.Inserir(pagamento);
 
