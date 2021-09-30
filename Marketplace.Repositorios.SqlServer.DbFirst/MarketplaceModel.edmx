@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MarketplaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MarketplaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cartao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Mascara" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Apelido" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="Id" />
@@ -59,6 +69,18 @@
           <Property Name="Foto" Type="varbinary(max)" />
           <Property Name="MimeType" Type="varchar" MaxLength="20" />
         </EntityType>
+        <Association Name="FK__Cartao__IdClient__4CA06362">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cartao" Type="Self.Cartao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cartao">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ItemPedid__IdPed__31EC6D26">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
           <End Role="ItemPedido" Type="Self.ItemPedido" Multiplicity="*" />
@@ -120,12 +142,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MarketplaceModelStoreContainer">
+          <EntitySet Name="Cartao" EntityType="Self.Cartao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemPedido" EntityType="Self.ItemPedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProdutoFoto" EntityType="Self.ProdutoFoto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cartao__IdClient__4CA06362" Association="Self.FK__Cartao__IdClient__4CA06362">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cartao" EntitySet="Cartao" />
+          </AssociationSet>
           <AssociationSet Name="FK__ItemPedid__IdPed__31EC6D26" Association="Self.FK__ItemPedid__IdPed__31EC6D26">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="ItemPedido" EntitySet="ItemPedido" />
@@ -147,8 +174,7 @@
             <End Role="ProdutoFoto" EntitySet="ProdutoFoto" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MarketplaceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -170,6 +196,7 @@
           <Property Name="Telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Pedidos" Relationship="Self.FK__Pedido__IdClient__276EDEB3" FromRole="Cliente" ToRole="Pedido" />
+          <NavigationProperty Name="Cartoes" Relationship="MarketplaceModel.FK__Cartao__IdClient__4CA06362" FromRole="Cliente" ToRole="Cartao" />
         </EntityType>
         <EntityType Name="ItemPedido">
           <Key>
@@ -303,7 +330,35 @@
             <End Role="Produto" EntitySet="Produtos" />
             <End Role="ProdutoFoto" EntitySet="ProdutoFotos" />
           </AssociationSet>
+          <EntitySet Name="Cartaos" EntityType="MarketplaceModel.Cartao" />
+          <AssociationSet Name="FK__Cartao__IdClient__4CA06362" Association="MarketplaceModel.FK__Cartao__IdClient__4CA06362">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="Cartao" EntitySet="Cartaos" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Cartao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="Mascara" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Apelido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cliente" Relationship="MarketplaceModel.FK__Cartao__IdClient__4CA06362" FromRole="Cartao" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK__Cartao__IdClient__4CA06362">
+          <End Type="MarketplaceModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="MarketplaceModel.Cartao" Role="Cartao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cartao">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -367,6 +422,17 @@
                 <ScalarProperty Name="IdProduto" ColumnName="IdProduto" />
                 <ScalarProperty Name="Foto" ColumnName="Foto" />
                 <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cartaos">
+            <EntityTypeMapping TypeName="MarketplaceModel.Cartao">
+              <MappingFragment StoreEntitySet="Cartao">
+                <ScalarProperty Name="Apelido" ColumnName="Apelido" />
+                <ScalarProperty Name="Mascara" ColumnName="Mascara" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -129,10 +129,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PagamentosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteViewModel.cs" />
+    <Compile Include="Models\PagamentoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,7 @@
     <Content Include="Views\Clientes\Details.cshtml" />
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Pagamentos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -194,6 +197,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Marketplace.Repositorios.Http\Marketplace.Repositorios.Http.csproj">
+      <Project>{22FE2332-BAA8-4A2E-845E-E650691D9933}</Project>
+      <Name>Marketplace.Repositorios.Http</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Marketplace.Repositorios.SqlServer.DbFirst\Marketplace.Repositorios.SqlServer.DbFirst.csproj">
       <Project>{A9B056CF-0071-4DC2-B870-51F517BA3E2B}</Project>
       <Name>Marketplace.Repositorios.SqlServer.DbFirst</Name>

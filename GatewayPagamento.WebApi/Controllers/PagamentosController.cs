@@ -19,7 +19,7 @@ namespace GatewayPagamento.WebApi.Controllers
             pagamentoServico = new PagamentoServico(pagamentoRepositorio, cartaoRepositorio);
         }
 
-        [Route("api/pagamentos/{idCartao}")]
+        [Route("api/pagamentos/cartao/{idCartao}")]
         public IEnumerable<PagamentoGetViewModel> Get(int idCartao)
         {
             return PagamentoGetViewModel.Mapear(pagamentoRepositorio.Selecionar(p => p.Cartao.Id == idCartao));

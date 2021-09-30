@@ -18,6 +18,7 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
         public Cliente()
         {
             this.Pedidos = new HashSet<Pedido>();
+            this.Cartoes = new HashSet<Cartao>();
         }
     
         public int Id { get; set; }
@@ -28,5 +29,7 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedidos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cartao> Cartoes { get; set; }
     }
 }

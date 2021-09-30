@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cartao.cs">
+      <DependentUpon>MarketplaceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Categoria.cs">
       <DependentUpon>MarketplaceModel.tt</DependentUpon>
     </Compile>
