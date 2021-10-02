@@ -1,11 +1,11 @@
-﻿using Marketplace.Mvc.Models;
+﻿using Marketplace.Identity.Mvc.Models;
 using Marketplace.Repositorios.SqlServer.DbFirst;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
 using System.Web.Mvc;
 
-namespace Marketplace.Mvc.Controllers
+namespace Marketplace.Identity.Mvc.Controllers
 {
     [Authorize]
     public class ClientesController : Controller

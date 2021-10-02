@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.Mvc.Models
+namespace Marketplace.Identity.Mvc.Models
 {
     public class ClienteViewModel
     {
@@ -10,14 +10,14 @@ namespace Marketplace.Mvc.Models
         [StringLength(14)]
         public string Documento { get; set; }
 
-        [Required] 
+        [Required]
         public string Nome { get; set; }
 
-        [Required] 
+        [Required]
         public string Telefone { get; set; }
 
-        [Required] 
+        [Required]
         [EmailAddress]
-        public string Email { get; set; }    
+        public string Email { get; set; }
     }
 }
