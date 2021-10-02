@@ -1,20 +1,27 @@
 ﻿using Marketplace.Repositorios.Http.Responses;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Marketplace.Identity.Mvc.Models
 {
-    public class PagamentoViewModel
+    public class PagamentoIndexViewModel
     {
         public int Id { get; set; }
+        
+        [Display(Name = "Máscara")]
         public string MascaraCartao { get; set; }
+        
+        [Display(Name = "Pedido")]
         public string NumeroPedido { get; set; }
+        
         public DateTime Data { get; set; }
+        
         public decimal Valor { get; set; }
 
-        internal static List<PagamentoViewModel> Mapear(List<PagamentoResponse> pagamentos)
+        internal static List<PagamentoIndexViewModel> Mapear(List<PagamentoResponse> pagamentos)
         {
-            var viewModels = new List<PagamentoViewModel>();
+            var viewModels = new List<PagamentoIndexViewModel>();
 
             foreach (var pagamento in pagamentos)
             {
@@ -24,9 +31,9 @@ namespace Marketplace.Identity.Mvc.Models
             return viewModels;
         }
 
-        private static PagamentoViewModel Mapear(PagamentoResponse pagamento)
+        private static PagamentoIndexViewModel Mapear(PagamentoResponse pagamento)
         {
-            var viewModel = new PagamentoViewModel();
+            var viewModel = new PagamentoIndexViewModel();
 
             viewModel.MascaraCartao = pagamento.MascaraCartao;
             viewModel.Id = pagamento.Id;

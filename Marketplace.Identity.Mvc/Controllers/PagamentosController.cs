@@ -1,5 +1,6 @@
 ﻿using Marketplace.Identity.Mvc.Models;
 using Marketplace.Repositorios.Http;
+using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -9,81 +10,38 @@ namespace Marketplace.Identity.Mvc.Controllers
     {
         private readonly PagamentoRepositorio pagamentoRepositorio = new PagamentoRepositorio("http://localhost:1075/api");
 
-        // GET: Pagamentos
         public async Task<ActionResult> Index(int? idCartao)
         {
-            return View(PagamentoViewModel.Mapear(await pagamentoRepositorio.ObterPorCartao(idCartao ?? 0)));
+            if (!idCartao.HasValue) return null;
+
+            TempData["idCartao"] = idCartao;
+
+            return View(PagamentoIndexViewModel.Mapear(await pagamentoRepositorio.ObterPorCartao(idCartao.Value)));
         }
 
-        // GET: Pagamentos/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Pagamentos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Pagamentos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(PagamentoCreateViewModel viewModel)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (!ModelState.IsValid)
+                {
+                    return View(viewModel);
+                }
 
-                return RedirectToAction("Index");
+                await pagamentoRepositorio.Post(PagamentoCreateViewModel.Mapear(viewModel));
+
+                return RedirectToAction("Index", new { idCartao = TempData["idCartao"] });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
-            }
-        }
-
-        // GET: Pagamentos/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Pagamentos/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Pagamentos/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Pagamentos/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                // Logar(ex);
+                return View("Error");
             }
         }
     }

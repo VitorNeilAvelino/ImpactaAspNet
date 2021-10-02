@@ -9,7 +9,7 @@ namespace Marketplace.Repositorios.Http
 {
     public class PagamentoRepositorio
     {
-        private readonly static HttpClient httpClient = new HttpClient();
+        private readonly HttpClient httpClient = new HttpClient();
         private const string caminho = "pagamentos";
 
         public PagamentoRepositorio(string baseAddress)

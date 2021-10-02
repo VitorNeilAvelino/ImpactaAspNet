@@ -11,7 +11,8 @@ namespace GatewayPagamento.Repositorios.SqlServer.CodeFirst.Tests
         [TestMethod()]
         public void InserirCartaoTeste()
         {
-            contexto.Cartoes.Add(new Cartao { Limite = 1000, Numero = "123" });
+            contexto.Cartoes.Add(new Cartao { Limite = 1000, Numero = "1234123412341234" });
+            contexto.SaveChanges();
         }
     }
 }

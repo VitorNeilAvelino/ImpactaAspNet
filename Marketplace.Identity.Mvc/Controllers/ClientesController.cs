@@ -1,6 +1,7 @@
 ﻿using Marketplace.Identity.Mvc.Models;
 using Marketplace.Repositorios.SqlServer.DbFirst;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Web.Mvc;
@@ -39,6 +40,7 @@ namespace Marketplace.Identity.Mvc.Controllers
             viewModel.Id = cliente.Id;
             viewModel.Nome = cliente.Nome;
             viewModel.Telefone = cliente.Telefone;
+            viewModel.IdCartao = cliente.Cartoes?.FirstOrDefault(c => c.Cliente.Id == cliente.Id)?.Id;
 
             return viewModel;
         }

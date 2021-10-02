@@ -179,7 +179,8 @@
     <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PagamentoViewModel.cs" />
+    <Compile Include="Models\PagamentoCreateViewModel.cs" />
+    <Compile Include="Models\PagamentoIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -245,6 +246,7 @@
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
     <Content Include="Views\Pagamentos\Index.cshtml" />
+    <Content Include="Views\Pagamentos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
