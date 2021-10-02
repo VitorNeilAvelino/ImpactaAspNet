@@ -1,10 +1,10 @@
-﻿using GatewayPagamento.Apoio;
-using GatewayPagamento.Dominio.Entidades;
+﻿using GatewayPagamento.Dominio.Entidades;
 using GatewayPagamento.Dominio.Servicos;
 using GatewayPagamento.Repositorios.SqlServer.CodeFirst;
 using GatewayPagamento.WebApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 
 namespace GatewayPagamento.WebApi.Controllers
@@ -32,19 +32,23 @@ namespace GatewayPagamento.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var statusPagamento = pagamentoServico.Incluir(PagamentoPostViewModel.Mapear(viewModel));
+            var pagamento = PagamentoPostViewModel.Mapear(viewModel);
+            
+            pagamentoServico.Incluir(pagamento);
 
-            switch (statusPagamento)
+            var responseViewModel = PagamentoGetViewModel.Mapear(pagamento);
+
+            switch (pagamento.Status)
             {
                 case StatusPagamento.SaldoIndisponivel:
                 case StatusPagamento.PedidoJaPago:
                 case StatusPagamento.CartaoInexistente:
-                    return BadRequest(statusPagamento.ObterDescricao());
+                    return Content(HttpStatusCode.BadRequest, responseViewModel);
                 case StatusPagamento.PagamentoOK:
-                    return Ok(new { Status = statusPagamento, MensagemStatus = statusPagamento.ObterDescricao() });
+                    return Ok(responseViewModel);
             }
 
-            return InternalServerError(new ArgumentOutOfRangeException(nameof(statusPagamento)));
+            return InternalServerError(new ArgumentOutOfRangeException(nameof(pagamento.Status)));
         }
     }
 }

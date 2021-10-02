@@ -181,6 +181,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PagamentoCreateViewModel.cs" />
     <Compile Include="Models\PagamentoIndexViewModel.cs" />
+    <Compile Include="Models\StatusPagamento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace GatewayPagamento.Dominio.Entidades
+namespace Marketplace.Identity.Mvc.Models
 {
     public enum StatusPagamento
     {
@@ -9,7 +9,7 @@ namespace GatewayPagamento.Dominio.Entidades
 
         [Description("Saldo indisponível")]
         SaldoIndisponivel = 1,
-        
+
         [Description("Pedido pago anteriormente")]
         PedidoJaPago = 2,
 

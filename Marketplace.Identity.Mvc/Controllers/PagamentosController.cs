@@ -33,8 +33,15 @@ namespace Marketplace.Identity.Mvc.Controllers
                 {
                     return View(viewModel);
                 }
+                
+                var pagamentoResponse = await pagamentoRepositorio.Post(PagamentoCreateViewModel.Mapear(viewModel));
 
-                await pagamentoRepositorio.Post(PagamentoCreateViewModel.Mapear(viewModel));
+                if (pagamentoResponse.Status != (int)StatusPagamento.PagamentoOK)
+                {
+                    ModelState.AddModelError("", pagamentoResponse.MensagemStatus);
+
+                    return View(viewModel);
+                }
 
                 return RedirectToAction("Index", new { idCartao = TempData["idCartao"] });
             }
