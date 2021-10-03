@@ -9,8 +9,8 @@ namespace Marketplace.Identity.Mvc.Models
         public int IdCartao { get; set; }
 
         [Required]
-        [DataType(DataType.CreditCard)]
         [Display(Name = "Cartão")]
+        [CreditCard()]
         public string NumeroCartao { get; set; }
 
         [Required]
