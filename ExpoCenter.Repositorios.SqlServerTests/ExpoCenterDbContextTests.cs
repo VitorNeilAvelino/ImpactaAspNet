@@ -47,10 +47,10 @@ namespace ExpoCenter.Repositorios.SqlServer.Tests
         public void InserirParticipanteTeste()
         {
             var participante = new Participante();
-            participante.Cpf = "12345678905";
+            participante.Cpf = "02345678905";
             participante.DataNascimento = new DateTime(2000, 1, 1);
-            participante.Email = "barros@gmail.com";
-            participante.Nome = "Barros";
+            participante.Email = "felipe@gmail.com";
+            participante.Nome = "Felipe";
             participante.Eventos = new List<Evento>
             {
                 dbContext.Eventos.Single(e => e.Descricao == "Expo Dubai 2020")
@@ -62,6 +62,15 @@ namespace ExpoCenter.Repositorios.SqlServer.Tests
             foreach (var evento in participante.Eventos)
             {
                 Console.WriteLine(evento.Descricao);
+            }
+        }
+
+        [TestMethod]
+        public void SelecionarParticipantesTeste()
+        {
+            foreach (var participante in dbContext.Participantes)
+            {
+                Console.WriteLine(participante.Nome);
             }
         }
     }
