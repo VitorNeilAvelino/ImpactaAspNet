@@ -4,43 +4,37 @@ using ExpoCenter.Mvc.Models;
 using ExpoCenter.Repositorios.SqlServer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ExpoCenter.Mvc.Controllers
 {
-    public class ParticipantesController : Controller
+    public class EventosController : ControllerBase
     {
-        private readonly ExpoCenterDbContext dbContext;
-        private readonly IMapper mapper;
-
-        public ParticipantesController(ExpoCenterDbContext dbContext, IMapper mapper)
+        public EventosController(ExpoCenterDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this.dbContext = dbContext;
-            this.mapper = mapper;
+
         }
-                
+
         public ActionResult Index()
         {
-            return View(mapper.Map<List<ParticipanteIndexViewModel>>(dbContext.Participantes));
+            return View(Mapper.Map<List<EventoViewModel>>(DbContext.Eventos));
         }
 
         public ActionResult Details(int id)
         {
-            return View();
+            return View(Mapper.Map<EventoViewModel>(DbContext.Eventos.SingleOrDefault(e => e.Id == id)));
         }
 
         public ActionResult Create()
         {
-            var viewModel = new ParticipanteCreateViewModel();
-            viewModel.Eventos = mapper.Map<List<EventoGridViewModel>>(dbContext.Eventos);
-
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ParticipanteCreateViewModel viewModel)
+        public ActionResult Create(EventoViewModel viewModel)
         {
             try
             {
@@ -49,17 +43,8 @@ namespace ExpoCenter.Mvc.Controllers
                     return View(ModelState);
                 }
 
-                var participante = mapper.Map<Participante>(viewModel);
-                
-                participante.Eventos = new List<Evento>();
-
-                foreach (var evento in viewModel.Eventos.Where(e => e.Selecionado))
-                {
-                    participante.Eventos.Add(dbContext.Eventos.Single(e => e.Id == evento.Id));
-                }
-
-                dbContext.Participantes.Add(participante);
-                dbContext.SaveChanges();
+                DbContext.Eventos.Add(Mapper.Map<Evento>(viewModel));
+                DbContext.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -69,40 +54,52 @@ namespace ExpoCenter.Mvc.Controllers
             }
         }
 
-        // GET: ParticipantesController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(Mapper.Map<EventoViewModel>(DbContext.Eventos.SingleOrDefault(e => e.Id == id)));
         }
 
-        // POST: ParticipantesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(EventoViewModel viewModel)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(ModelState);
+                }
+
+                DbContext.Entry(Mapper.Map<Evento>(viewModel)).State = EntityState.Modified;
+                DbContext.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 
-        // GET: ParticipantesController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(Mapper.Map<EventoViewModel>(DbContext.Eventos.SingleOrDefault(e => e.Id == id)));
         }
 
-        // POST: ParticipantesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
+                var evento = DbContext.Eventos.SingleOrDefault(e => e.Id == id);
+
+                if (evento != null)
+                {
+                    DbContext.Eventos.Remove(evento);
+                    DbContext.SaveChanges();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch

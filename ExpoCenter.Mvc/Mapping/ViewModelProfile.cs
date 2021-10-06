@@ -9,8 +9,17 @@ namespace ExpoCenter.Mvc.Mapping
     {
         public ViewModelProfile()
         {
-            CreateMap<Participante, ParticipanteViewModel>().ReverseMap();
-            CreateMap<List<Participante>, List<ParticipanteViewModel>>().ReverseMap();
+            CreateMap<Participante, ParticipanteIndexViewModel>().ReverseMap();
+            CreateMap<List<Participante>, List<ParticipanteIndexViewModel>>().ReverseMap();
+
+            CreateMap<Participante, ParticipanteCreateViewModel>().ReverseMap();
+            CreateMap<List<Participante>, List<ParticipanteCreateViewModel>>().ReverseMap();
+
+            CreateMap<Evento, EventoViewModel>().ReverseMap();
+            CreateMap<List<Evento>, List<EventoViewModel>>().ReverseMap();
+
+            CreateMap<Evento, EventoGridViewModel>().ReverseMap();
+            CreateMap<List<Evento>, List<EventoGridViewModel>>().ReverseMap();
         }
     }
 }
