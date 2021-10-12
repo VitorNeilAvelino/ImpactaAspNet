@@ -29,9 +29,11 @@ namespace ExpoCenter.Mvc
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<ExpoCenterDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("ExpoCenterConnection")));
+            services.AddDbContext<ExpoCenterDbContext>(
+                options => options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(
+                        Configuration.GetConnectionString("ExpoCenterConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

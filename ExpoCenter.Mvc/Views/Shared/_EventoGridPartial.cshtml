@@ -26,7 +26,8 @@
             <tr>
                 <td>
                     @Html.CheckBox($"Eventos[{i}].Selecionado", item.Selecionado)
-                    @Html.Hidden($"Eventos[{i++}].Id", item.Id)                    
+                    @Html.Hidden($"Eventos[{i}].Id", item.Id)
+                    @Html.Hidden($"Eventos[{i++}].Descricao", item.Descricao)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Descricao)

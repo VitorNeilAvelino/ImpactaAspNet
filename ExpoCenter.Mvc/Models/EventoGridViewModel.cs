@@ -7,7 +7,7 @@ namespace ExpoCenter.Mvc.Models
     {
         public int Id { get; set; }
         
-        [Display(Name = "Descrição")]        
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
         
         public DateTime Data { get; set; }
@@ -15,6 +15,7 @@ namespace ExpoCenter.Mvc.Models
         public string Local { get; set; }
 
         [DataType(DataType.Currency)]
+        [Display(Name = "Preço")]
         public decimal Preco { get; set; }
 
         public bool Selecionado { get; set; }

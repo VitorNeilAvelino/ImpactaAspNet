@@ -6,6 +6,8 @@ namespace ExpoCenter.Mvc.Models
 {
     public class ParticipanteCreateViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Nome { get; set; }
 

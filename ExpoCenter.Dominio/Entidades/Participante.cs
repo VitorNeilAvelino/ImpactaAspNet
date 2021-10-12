@@ -10,6 +10,6 @@ namespace ExpoCenter.Dominio.Entidades
         public string Email { get; set; }
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; set; }
-        public List<Evento> Eventos { get; set; }
+        public virtual List<Evento> Eventos { get; set; }
     }
 }
