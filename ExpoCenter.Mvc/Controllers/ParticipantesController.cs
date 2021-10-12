@@ -166,24 +166,32 @@ namespace ExpoCenter.Mvc.Controllers
             }
         }
 
-        // GET: ParticipantesController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(mapper.Map<ParticipanteIndexViewModel>(dbContext.Participantes.Find(id)));
         }
 
-        // POST: ParticipantesController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
+                var participante = dbContext.Participantes.Find(id);
+
+                if (participante == null)
+                {
+                    return NotFound();
+                }
+
+                dbContext.Remove(participante);
+                dbContext.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
     }
