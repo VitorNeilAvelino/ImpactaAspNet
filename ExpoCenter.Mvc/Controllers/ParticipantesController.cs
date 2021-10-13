@@ -103,8 +103,6 @@ namespace ExpoCenter.Mvc.Controllers
         {
             try
             {
-                throw new Exception("Teste");
-
                 if (!ModelState.IsValid)
                 {
                     return View(ModelState);

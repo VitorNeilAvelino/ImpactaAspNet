@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExpoCenter.Mvc.Models
@@ -19,6 +20,8 @@ namespace ExpoCenter.Mvc.Models
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal Preco { get; set; }  
+        public decimal Preco { get; set; }
+
+        public List<ParticipanteGridViewModel> Participantes { get; set; }
     }
 }

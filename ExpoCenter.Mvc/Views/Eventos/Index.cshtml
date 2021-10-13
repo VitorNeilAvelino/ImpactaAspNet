@@ -28,15 +28,11 @@
         </tr>
     </thead>
     <tbody>
-        @{ var i = 0;}
         @foreach (var item in Model)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Descricao)
-                    @*@Html.HiddenFor(modelItem => item.Id, new { name = "Eventos[{" + i++ +"}].Id" })*@
-                    @*@Html.HiddenFor(modelItem => item.Id, htmlAttributes: new TModel { })*@
-                    @Html.Hidden($"Eventos[{i++}].Id", item.Id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Data)
@@ -48,6 +44,7 @@
                     @Html.DisplayFor(modelItem => item.Preco)
                 </td>
                 <td>
+                    @Html.ActionLink("Participantes", "Participantes", new { eventoId = item.Id }) |
                     @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Excluir", "Delete", new { id = item.Id })

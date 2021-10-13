@@ -19,7 +19,7 @@ namespace ExpoCenter.Mvc.Controllers
 
         public ActionResult Index()
         {
-            return View(Mapper.Map<List<EventoViewModel>>(DbContext.Eventos));
+            return View(Mapper.Map<List<EventoViewModel>>(DbContext.Eventos.ToList()));
         }
 
         public ActionResult Details(int id)
@@ -106,6 +106,50 @@ namespace ExpoCenter.Mvc.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Participantes(int eventoId)
+        {
+            var evento = DbContext.Eventos.Find(eventoId);
+
+            var viewModel = Mapper.Map<EventoViewModel>(evento);
+
+            viewModel.Participantes = Mapper.Map<List<ParticipanteGridViewModel>>(DbContext.Participantes.OrderBy(p => p.Nome));
+
+            if (evento.Participantes != null)
+            {
+                foreach (var participante in evento.Participantes)
+                {
+                    viewModel.Participantes.Single(p => p.Id == participante.Id).Selecionado = true;
+                }
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Participantes(EventoViewModel viewModel)
+        {
+            var evento = DbContext.Eventos.Find(viewModel.Id);
+
+            foreach (var participante in viewModel.Participantes)
+            {
+                if (participante.Selecionado)
+                {
+                    if (evento.Participantes.Any(e => e.Id == participante.Id)) continue;
+
+                    evento.Participantes.Add(DbContext.Participantes.Single(e => e.Id == participante.Id));
+                }
+                else
+                {
+                    evento.Participantes.Remove(DbContext.Participantes.Single(e => e.Id == participante.Id));
+                }
+            }
+
+            DbContext.Update(evento);
+            DbContext.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
