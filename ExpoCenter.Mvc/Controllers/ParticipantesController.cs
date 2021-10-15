@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,15 +18,18 @@ namespace ExpoCenter.Mvc.Controllers
     {
         private readonly ExpoCenterDbContext dbContext;
         private readonly IMapper mapper;
+        private readonly ILogger<ParticipantesController> logger;
 
-        public ParticipantesController(ExpoCenterDbContext dbContext, IMapper mapper)
+        public ParticipantesController(ExpoCenterDbContext dbContext, IMapper mapper, ILogger<ParticipantesController> logger)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         public ActionResult Index()
         {
+            logger.LogInformation("Entrou em Index"); // log4net.config: level value="Info"
             return View(mapper.Map<List<ParticipanteIndexViewModel>>(dbContext.Participantes));
         }
 
