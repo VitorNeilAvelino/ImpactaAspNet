@@ -21,7 +21,6 @@ namespace ExpoCenter.Mvc
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -38,7 +37,7 @@ namespace ExpoCenter.Mvc
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => { 
+            services.AddIdentity<IdentityUser, IdentityRole>(options => { 
                 options.SignIn.RequireConfirmedAccount = true;
                 
                 options.Password.RequireDigit = false;
@@ -48,9 +47,19 @@ namespace ExpoCenter.Mvc
                 options.Password.RequiredLength = 3;
                 //options.Password.RequiredUniqueChars = 1;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
 
             services.AddControllersWithViews(/*o => o.Filters.Add(typeof(ErrorLogFilter))*/);
+
+            services.AddAuthorization(options =>
+            {
+                //options.AddPolicy("ParticipantesExcluir", policy => policy
+                //    .RequireRole("Administrador")
+                //    .RequireClaim("Participantes", "Excluir"));
+                options.AddPolicy("ParticipantesExcluir", policy => policy
+                    .RequireAssertion(c => c.User.IsInRole("Administrador") || c.User.HasClaim("Participantes", "Excluir")));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
