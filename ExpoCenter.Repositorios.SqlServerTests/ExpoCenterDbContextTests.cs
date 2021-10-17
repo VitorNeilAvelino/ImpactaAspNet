@@ -73,5 +73,17 @@ namespace ExpoCenter.Repositorios.SqlServer.Tests
                 Console.WriteLine(participante.Nome);
             }
         }
+
+        [TestMethod]
+        public void InserirPagamentoTeste()
+        {
+            var pagamento = new Pagamento();
+            pagamento.IdCartao = Guid.NewGuid();
+            pagamento.IdProduto = Guid.NewGuid();
+            pagamento.Valor = 14.45m;
+
+            dbContext.Add(pagamento);
+            dbContext.SaveChanges();
+        }
     }
 }
