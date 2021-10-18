@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ExpoCenter.Dominio.Entidades;
 using ExpoCenter.Repositorios.SqlServer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ExpoCenter.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    //[Authorize]
     [ApiController]
+    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PagamentosController : ControllerBase
     {
         private readonly ExpoCenterDbContext _context;
@@ -20,15 +22,14 @@ namespace ExpoCenter.WebApi.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Pagamentos
+        
         [HttpGet]
+        [Authorize(Roles = "Agente")]
         public async Task<ActionResult<IEnumerable<Pagamento>>> GetPagamentos()
         {
             return await _context.Pagamentos.ToListAsync();
         }
 
-        // GET: api/Pagamentos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Pagamento>> GetPagamento(int id)
         {
