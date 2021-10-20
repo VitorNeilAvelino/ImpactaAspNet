@@ -1,4 +1,6 @@
+using ExpoCenter.Dominio.Interfaces;
 using ExpoCenter.Mvc.Data;
+using ExpoCenter.Repositorios.Http;
 using ExpoCenter.Repositorios.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Reflection;
 
 namespace ExpoCenter.Mvc
@@ -59,6 +62,12 @@ namespace ExpoCenter.Mvc
                 //    .RequireClaim("Participantes", "Excluir"));
                 options.AddPolicy("ParticipantesExcluir", policy => policy
                     .RequireAssertion(c => c.User.IsInRole("Administrador") || c.User.HasClaim("Participantes", "Excluir")));
+            });
+
+            services.AddHttpClient<IPagamentoRepositorio, PagamentoRepositorio>(c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetSection("Endpoints:ApiExpoCenter").Value.TrimEnd('/') + '/');
+                c.DefaultRequestHeaders.Add("Authorization", $"Bearer {Configuration.GetSection("Token").Value}");
             });
         }
 

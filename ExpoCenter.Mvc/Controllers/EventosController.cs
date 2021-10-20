@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 
 namespace ExpoCenter.Mvc.Controllers
 {
     public class EventosController : ControllerBase
     {
-        public EventosController(ExpoCenterDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public EventosController(ExpoCenterDbContext dbContext, IMapper mapper, IHttpClientFactory httpClientFactory) : base(dbContext, mapper, httpClientFactory)
         {
 
         }
@@ -29,6 +30,10 @@ namespace ExpoCenter.Mvc.Controllers
 
         public ActionResult Create()
         {
+            var httpClient = HttpClientFactory.CreateClient("apiExpoCenter");
+
+
+
             return View();
         }
 
