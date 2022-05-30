@@ -27,7 +27,7 @@ namespace Marketplace.Repositorios.Http
 
         public async Task<PagamentoResponse> Post(PagamentoRequest pagamento)
         {
-            using (var resposta = await httpClient.PostAsJsonAsync($"{caminho}", pagamento))
+            using (var resposta = await httpClient.PostAsJsonAsync(caminho, pagamento))
             {
                 return await resposta.Content.ReadAsAsync<PagamentoResponse>();
             }
